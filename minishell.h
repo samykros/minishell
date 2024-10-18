@@ -2,30 +2,24 @@
 #include <stdlib.h>  // Para malloc y free
 #include <string.h>  // Para strdup, strlen, strndup
 #include <ctype.h>
-
+#include <signal.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 // Estructura para un token
 typedef struct s_token {
-    char *value;      // Valor del token
-    int type;         // Tipo de token (comando, argumento, operador, etc.)
-    struct s_token *next;  // Puntero al siguiente token
+	char *value;	// Valor del token
+	int type;		// Tipo de token (comando, argumento, operador, etc.)
+	struct s_token *next;  // Puntero al siguiente token
 } t_token;
-
 
 // Hacer otra link list con str de los inputs anteriores
 // Estructura para un comando completo
 typedef struct s_command {
-    char *command_str;         // El string del comando completo
-    struct s_command *next;    // Puntero al siguiente nodo en la lista
+	char *command_str;		// El string del comando completo
+	struct s_command *next;	// Puntero al siguiente nodo en la lista
 } t_command;
 
-
-
-// Inicializa el lexer, preparando variables y estructuras necesarias
-void init_lexer(const char *input);
-
-// Recorre el input y genera una lista de tokens
-t_token *tokenize_input(const char *input);
 
 // Obtiene el siguiente token del input
 t_token *get_next_token(const char *input, int *pos);
@@ -71,3 +65,24 @@ char *concatenar_tokens(t_token *tokens);
 
 // Función para añadir un comando a la lista enlazada de comandos
 void add_command_to_list(t_command **command_list, char *command_str);
+
+// Identificar echo, cd, pwd, export, unset, exit
+int identify_command(char *command);
+
+int validate_token_sequence(t_token *tokens);
+
+// libft commands
+char	*ft_strndup(const char *s, size_t n);
+int		ft_strcmp(const char *s1, const char *s2);
+
+// signals
+
+
+// Prototipos
+int is_echo(t_token *tokens);
+int is_cd(t_token *tokens);
+int is_pwd(t_token *tokens);
+int is_export(t_token *tokens);
+int is_unset(t_token *tokens);
+int is_env(t_token *tokens);
+int is_exit(t_token *tokens);

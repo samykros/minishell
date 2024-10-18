@@ -1,15 +1,32 @@
 #include "minishell.h"
 
+volatile sig_atomic_t g_exit_status = 0; // Variable global para manejar el estado de salida
+
+void handle_sigint(int sig)
+{
+	(void)sig;
+	g_exit_status = 1; // Cambia el estado para indicar que Ctrl-C fue recibido
+	printf("\n\033[0;32m➜ \033[0;36m\033[1m minishell > \033[0;37m");
+}
+
 int main(void)
 {
-	int			pos;
-	char		*input;
-	t_token		*tokens;
-	t_command	*command_history = NULL;  // Lista para almacenar los comandos completos
+	int pos;
+	char *input;
+	t_token *tokens;
+	t_command *command_history = NULL;  // Lista para almacenar los comandos completos
 
+	signal(SIGINT, handle_sigint);
 	while (1)
 	{
+		if (g_exit_status)
+			g_exit_status = 0; // Reiniciar el estado
+
+		// Leer la entrada del usuario
 		input = readline("\033[0;32m➜ \033[0;36m\033[1m minishell > \033[0;37m");
+
+		if (!input)
+			break; // si el usuario presiona Ctrl-D, readline devuelve NULL, de ahi if !input
 
 		pos = 0;
 		tokens = NULL;
@@ -60,5 +77,9 @@ int main(void)
 		// Liberar la memoria del input después de cada iteración
 		free(input);
 	}
+
+	// Liberar la memoria de command_history si es necesario antes de salir
+	// free_command_history(command_history);
+
 	return (0);
 }

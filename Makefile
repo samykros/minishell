@@ -16,7 +16,6 @@ SRC =	main.c \
 		utils_print.c \
 		check_commands.c \
 		utils_libft.c \
-	#	ctlr.c \
 
 # Archivos objeto generados
 OBJ = $(SRC:.c=.o)

@@ -14,7 +14,7 @@ int identify_command(char *command)
 	return (0);
 }
 
-// Maybe not the best way..?
+// Maybe not the best way..? Personalizar para cada comando
 int validate_token_sequence(t_token *tokens)
 {
 	int expect_type = 1;
@@ -42,10 +42,8 @@ int validate_token_sequence(t_token *tokens)
 				expect_type = 1;  // Después de un operador, debe venir un comando
 		}
 		else
-			return 0;  // Secuencia inválida
-
+			return (0);  // Secuencia inválida
 		tokens = tokens->next;
 	}
-
-	return 1;
+	return (1);
 }

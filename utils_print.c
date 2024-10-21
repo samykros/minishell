@@ -9,15 +9,3 @@ void print_tokens(t_token *tokens)
 		temp = temp->next;
 	}
 }
-
-void print_commands(t_command *command_list)
-{
-	t_command *temp = command_list;
-		
-	printf("Lista de comandos:\n");
-	while (temp != NULL)
-	{
-		printf("%s\n", temp->command_str);  // Imprimir cada comando
-		temp = temp->next;  // Pasar al siguiente comando
-	}
-}

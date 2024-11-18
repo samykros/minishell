@@ -3,15 +3,17 @@
 // Verifica si el carácter actual es una comilla
 int is_quote(char c)
 {
-	if (c == '\'' || c == '"') // ESTO '\'' ??
+	if (c == '\'' || c == '"') // ESTO '\'' ?? supongo que para poner '
 		return (1);
 	return (0);
 }
 
 int is_operator(char c)
 {
-	if (c == '>' || c == '<' || c == '|')
+	if (c == '>' || c == '<')
 		return (1);
+	else if (c == '|')
+		return (2);
 	return (0);
 }
 

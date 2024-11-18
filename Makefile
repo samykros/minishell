@@ -3,7 +3,7 @@ NAME = minishell
 
 # Compilador y flags
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g
 
 # Directorios de readline
 LDFLAGS = -L/opt/homebrew/opt/readline/lib
@@ -12,10 +12,13 @@ LIBS = -lreadline
 
 # Archivos fuente
 SRC =	main.c \
-		lexer.c utils.c \
+		handlers.c \
+		utils.c \
+		utils_2.c \
 		utils_print.c \
-		check_commands.c \
 		utils_libft.c \
+		tokenizer.c \
+		tokens_help.c \
 
 # Archivos objeto generados
 OBJ = $(SRC:.c=.o)

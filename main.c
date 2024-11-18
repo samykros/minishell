@@ -9,41 +9,18 @@ void handle_sigint(int sig)
 	printf("\n\033[0;32m➜ \033[0;36m\033[1m minishell > \033[0;37m");
 }
 
-t_token *tokenizer(char *input)
-{
-	int pos = 0;
-	t_token *tokens = NULL;
-
-	// Proceso de tokenización
-	while (!is_end_of_input(input, pos))
-	{
-		if (is_quote(input[pos]))
-		{
-			t_token *token = handle_quoted_string(input, &pos);
-			add_token_to_list(&tokens, token);
-		} else if (is_operator(input[pos]))
-		{
-			t_token *token = handle_operator(input, &pos);
-			add_token_to_list(&tokens, token);
-		} else if (is_envvariable(input[pos]))
-		{
-			t_token *token = handle_envvariable(input, &pos);
-			add_token_to_list(&tokens, token);
-		} else
-		{
-			t_token *token = get_next_token(input, &pos);
-			add_token_to_list(&tokens, token);
-		}
-	}
-	return (tokens); // Devolver la lista de tokens
-}
-
-int main(void)
+int main(int argc, char **argv, char **env)
 {
 	char *input;
 	t_token *tokens;
+	t_node *commands;
+	//t_env *env_list = init_env(env);
 
+	(void)argc;
+	(void)argv;
+	(void)env;
 	signal(SIGINT, handle_sigint);
+	//init_env(&env);
 	while (1)
 	{
 		if (g_exit_status)
@@ -54,13 +31,15 @@ int main(void)
 		if (*input) // Añadir solo si el input no está vacío, esto hace que flechas funcionen con readline
 			add_history(input);
 		tokens = tokenizer(input);
-
-		if (validate_token_sequence(tokens) == 0)
-			printf("command not found\n");
+		commands = node_list(tokens);
 		
-		// Imprimir la lista de tokens para verificar que funciona
+		// Lista de tokens para verificar que funciona
 		print_tokens(tokens);
+		printf("\n");
+		print_commands(commands);
+
 		free_tokens(tokens);
+		// free_commands no hecho
 		free(input);
 	}
 

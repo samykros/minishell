@@ -9,3 +9,22 @@ void print_tokens(t_token *tokens)
 		temp = temp->next;
 	}
 }
+
+void print_commands(t_node *commands)
+{
+    t_node *temp = commands;
+    while (temp != NULL)
+    {
+        printf("Command: ");
+        t_token *token_temp = temp->tokens;
+        while (token_temp != NULL)
+		{
+            printf("%s ", token_temp->value);
+            token_temp = token_temp->next;
+        }
+        printf("\n");
+        temp = temp->next;
+    }
+}
+
+

@@ -19,6 +19,8 @@ SRC =	main.c \
 		utils_libft.c \
 		tokenizer.c \
 		tokens_help.c \
+		env.c \
+		free.c \
 
 # Archivos objeto generados
 OBJ = $(SRC:.c=.o)

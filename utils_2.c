@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_2.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: spascual <spascual@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/10 12:08:00 by spascual          #+#    #+#             */
+/*   Updated: 2024/12/10 12:12:45 by spascual         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int is_pipe(t_token *token)
+int	is_pipe(t_token *token)
 {
-	return token && strcmp(token->value, "|") == 0;  // Compara si el valor del token es un pipe
+	return (token && strcmp(token->value, "|") == 0);
 }

@@ -6,11 +6,11 @@
 /*   By: spascual <spascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:07:54 by spascual          #+#    #+#             */
-/*   Updated: 2024/12/10 12:15:28 by spascual         ###   ########.fr       */
+/*   Updated: 2024/12/10 13:43:41 by spascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	add_token_to_list(t_token **token_list, t_token *new_token, const char *input, int *pos)  // 2 x * pq pasas la referencia &
 {
@@ -41,6 +41,7 @@ t_token	*crear_token(char *value, int type)
 	if (!new_token)
 		return (NULL);
 	new_token->value = value;
+	//free(value);  // por el strdup, pero crea mas problemas
 	new_token->type = type;
 	new_token->next = NULL;
 	return (new_token);

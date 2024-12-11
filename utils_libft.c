@@ -6,11 +6,11 @@
 /*   By: spascual <spascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:08:02 by spascual          #+#    #+#             */
-/*   Updated: 2024/12/10 12:12:01 by spascual         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:28:57 by spascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	ft_strcmp(const char *s1, const char *s2)
 {

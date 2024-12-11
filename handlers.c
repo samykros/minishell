@@ -6,11 +6,11 @@
 /*   By: spascual <spascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:07:40 by spascual          #+#    #+#             */
-/*   Updated: 2024/12/10 12:07:41 by spascual         ###   ########.fr       */
+/*   Updated: 2024/12/10 13:43:37 by spascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 t_token *handle_quoted_string(const char *input, int *pos)
 {

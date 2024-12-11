@@ -6,11 +6,11 @@
 /*   By: spascual <spascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:08:08 by spascual          #+#    #+#             */
-/*   Updated: 2024/12/10 12:08:09 by spascual         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:35:25 by spascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void print_tokens(t_token *tokens)
 {
@@ -22,9 +22,9 @@ void print_tokens(t_token *tokens)
 	}
 }
 
-void print_commands(t_node *commands)
+void print_commands(t_command *commands)
 {
-	t_node *temp = commands;
+	t_command *temp = commands;
 	while (temp != NULL)
 	{
 		printf("Command: ");

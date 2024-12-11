@@ -6,11 +6,11 @@
 /*   By: spascual <spascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:08:00 by spascual          #+#    #+#             */
-/*   Updated: 2024/12/10 12:12:45 by spascual         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:28:54 by spascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	is_pipe(t_token *token)
 {

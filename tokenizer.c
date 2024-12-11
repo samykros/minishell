@@ -6,19 +6,19 @@
 /*   By: spascual <spascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:07:48 by spascual          #+#    #+#             */
-/*   Updated: 2024/12/10 12:15:59 by spascual         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:38:12 by spascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-t_node	*create_command_node(t_token *start, t_token *end)
+t_command	*create_command_command(t_token *start, t_token *end)
 {
-	t_node *node = malloc(sizeof(t_node));
-	if (!node)
+	t_command *command = malloc(sizeof(t_command));
+	if (!command)
 		return NULL;
-	node->tokens = NULL;
-	node->next = NULL;
+	command->tokens = NULL;
+	command->next = NULL;
 
 	// Copiar tokens desde start hasta end (exclusivo)
 	t_token *current = start;
@@ -30,7 +30,7 @@ t_node	*create_command_node(t_token *start, t_token *end)
 		{
 			// Manejo de error, liberar memoria
 			free_tokens(copy_head);
-			free(node);
+			free(command);
 			return (NULL);
 		}
 		*new_token = *current;  // Copiar contenido
@@ -43,14 +43,14 @@ t_node	*create_command_node(t_token *start, t_token *end)
 		last = new_token;
 		current = current->next;
 	}
-	node->tokens = copy_head;
-	return (node);
+	command->tokens = copy_head;
+	return (command);
 }
 
-t_node	*node_list(t_token *tokens)
+t_command	*command_list(t_token *tokens)
 {
-	t_node *head = NULL;
-	t_node *current = NULL;
+	t_command *head = NULL;
+	t_command *current = NULL;
 	t_token *command_start = tokens;  // Inicio del comando actual
 	t_token *token_iter = tokens;  // Iterador para tokens
 
@@ -60,17 +60,17 @@ t_node	*node_list(t_token *tokens)
 		{
 			if (command_start != token_iter)
 			{  // Evitar nodos vacíos en caso de pipes consecutivos
-				t_node *new_node = create_command_node(command_start, token_iter);
-				if (!new_node)
+				t_command *new_command = create_command_command(command_start, token_iter);
+				if (!new_command)
 				{
-					free_nodes(head);
+					free_commands(head);
 					return (NULL);
 				}
 				if (!head)
-					head = new_node;
+					head = new_command;
 				else
-					current->next = new_node;
-				current = new_node;
+					current->next = new_command;
+				current = new_command;
 			}
 			command_start = token_iter->next;  // Comenzar un nuevo comando después del pipe
 		}
@@ -79,16 +79,16 @@ t_node	*node_list(t_token *tokens)
 	// Último comando después del último pipe
 	if (command_start != NULL)
 	{
-		t_node *new_node = create_command_node(command_start, NULL); // Hasta el final de la lista
-		if (!new_node)
+		t_command *new_command = create_command_command(command_start, NULL); // Hasta el final de la lista
+		if (!new_command)
 		{
-			free_nodes(head);
+			free_commands(head);
 			return (NULL);
 		}
 		if (!head)
-			head = new_node;
+			head = new_command;
 		else
-			current->next = new_node;
+			current->next = new_command;
 	}
 	return (head);
 }
@@ -109,7 +109,7 @@ t_token	*tokenizer(char *input, t_env *env_list)
 		else if (is_operator(input[pos]))
 		{
 			if (is_operator(input[pos]) == 2) // pipe
-				node_list(tokens);
+				command_list(tokens);
 			token = handle_operator(input, &pos);
 			add_token_to_list(&tokens, token, input, &pos);
 		}

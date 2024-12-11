@@ -6,11 +6,11 @@
 /*   By: spascual <spascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:07:08 by spascual          #+#    #+#             */
-/*   Updated: 2024/12/10 12:10:10 by spascual         ###   ########.fr       */
+/*   Updated: 2024/12/10 13:43:45 by spascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	free_env(t_env *env)
 {
@@ -34,22 +34,22 @@ void	free_tokens(t_token *tokens)
 	{
 		tmp = tokens;
 		tokens = tokens->next;
-		free(tmp->value);
+		//free(tmp->value); // TODO mira strdup value
 		free(tmp);
 		tmp = NULL;
 	}
 }
 
-void	free_nodes(t_node *nodes)
+void	free_commands(t_command *commands)
 {
-	t_node	*current_node;
+	t_command	*current_command;
 
-	while (nodes)
+	while (commands)
 	{
-		current_node = nodes;
-		nodes = nodes->next;
-		free_tokens(current_node->tokens);
-		free(current_node);
-		current_node = NULL;
+		current_command = commands;
+		commands = commands->next;
+		free_tokens(current_command->tokens);
+		free(current_command);
+		current_command = NULL;
 	}
 }

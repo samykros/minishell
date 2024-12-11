@@ -6,11 +6,11 @@
 /*   By: spascual <spascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:07:29 by spascual          #+#    #+#             */
-/*   Updated: 2024/12/10 12:07:30 by spascual         ###   ########.fr       */
+/*   Updated: 2024/12/10 18:00:59 by spascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 t_env *new_env_node(const char *name, const char *value)
 {
@@ -61,4 +61,16 @@ t_env *init_env(char **env)
 
 	return head;
 }
+
+void builtin_env(t_env *env_list)
+{
+	t_env *current = env_list;
+
+	while (current)
+	{
+		printf("%s=%s\n", current->name, current->value);
+		current = current->next;
+	}
+}
+
 

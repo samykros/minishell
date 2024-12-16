@@ -16,7 +16,7 @@ SRC =	src/main.c \
 		src/utils.c \
 		src/utils_2.c \
 		src/utils_print.c \
-		src/utils_libft.c \
+		src/utils_1.c \
 		src/tokenizer.c \
 		src/tokens_help.c \
 		src/env.c \
@@ -29,6 +29,7 @@ SRC =	src/main.c \
 		src/export.c \
 		src/pwd.c \
 		src/unset.c \
+		src/list_to_arr.c \
 
 # Archivos objeto generados
 OBJ = $(SRC:.c=.o)

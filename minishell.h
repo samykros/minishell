@@ -1,15 +1,16 @@
 #include <stdio.h>
 #include <unistd.h>
-#include <stdlib.h>  // Para malloc y free
-#include <string.h>  // Para strdup, strlen, strndup
+#include <stdlib.h>
+#include <string.h>
 #include <ctype.h>
 #include <signal.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <sys/wait.h>
 
 typedef struct s_token {
 	char *value;
-	int type;		// (comando, argumento, operador, etc.)
+	int type;		// (comando, argumento, operador, etc.), hace falta ?
 	struct s_token *next;
 } t_token;
 
@@ -66,9 +67,13 @@ int is_pipe(t_token *token);
 t_command *command_list(t_token *tokens);
 t_command *create_command_command(t_token *start, t_token *end);
 
-// libft commands
+// utils
 char	*ft_strndup(const char *s, size_t n);
 int		ft_strcmp(const char *s1, const char *s2);
+int		ft_strlen(const char *str);
+char	*ft_strncpy(char *dst, const char *src, size_t n);
+char	*ft_strcat(char *dst, const char *src);
+int		count_commands(t_command *commands);
 
 // signals
 void handle_sigint(int sig);
@@ -84,13 +89,20 @@ void	free_commands(t_command *commands);
 // Execution
 void	execute_commands(t_command *commands, t_env *env_list);
 void	execute_external(t_command *command, t_env *env_list);
+char	*find_executable(const char *cmd, t_env *env_list);
+
+// list to arr
+char **convert_tokens_to_arr(t_token *tokens);
+char **convert_env_list_to_array(t_env *env_list);
 
 // Prototipos
 void builtin_echo(t_command *command);
 void builtin_cd(t_command *command);
-//void builtin_pwd(t_command *command);
 void builtin_export(t_command *command, t_env *env_list);
 void builtin_unset(t_command *command, t_env *env_list);
 void builtin_env(t_env *env_list);
 void builtin_exit(t_command *command);
 void builtin_pwd(void);
+
+
+void execute_pipeline(t_command *commands, int num_commands, t_env *env_list);

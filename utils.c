@@ -6,16 +6,16 @@
 /*   By: spascual <spascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:08:10 by spascual          #+#    #+#             */
-/*   Updated: 2024/12/10 12:12:22 by spascual         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:34:17 by spascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 // Verifica si el carácter actual es una comilla
 int	is_quote(char c)
 {
-	if (c == '\'' || c == '"') // ESTO '\'' ?? supongo que para poner '
+	if (c == '\'' || c == '"')  // '\'' supongo que para poner '
 		return (1);
 	return (0);
 }

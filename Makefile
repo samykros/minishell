@@ -11,16 +11,25 @@ CPPFLAGS = -I/opt/homebrew/opt/readline/include
 LIBS = -lreadline
 
 # Archivos fuente
-SRC =	main.c \
-		handlers.c \
-		utils.c \
-		utils_2.c \
-		utils_print.c \
-		utils_libft.c \
-		tokenizer.c \
-		tokens_help.c \
-		env.c \
-		free.c \
+SRC =	src/main.c \
+		src/handlers.c \
+		src/utils.c \
+		src/utils_2.c \
+		src/utils_print.c \
+		src/utils_1.c \
+		src/tokenizer.c \
+		src/tokens_help.c \
+		src/env.c \
+		src/free.c \
+		src/execution.c \
+		src/execution_2.c \
+		src/cd.c \
+		src/echo.c \
+		src/exit.c \
+		src/export.c \
+		src/pwd.c \
+		src/unset.c \
+		src/list_to_arr.c \
 
 # Archivos objeto generados
 OBJ = $(SRC:.c=.o)

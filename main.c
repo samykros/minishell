@@ -6,11 +6,11 @@
 /*   By: spascual <spascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:07:17 by spascual          #+#    #+#             */
-/*   Updated: 2024/12/10 12:17:13 by spascual         ###   ########.fr       */
+/*   Updated: 2024/12/15 16:43:50 by spascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 volatile	sig_atomic_t g_exit_status = 0; // Variable global para manejar el estado de salida
 
@@ -25,7 +25,7 @@ int main(int argc, char **argv, char **env)
 {
 	char	*input;
 	t_token	*tokens = NULL;
-	t_node	*nodes = NULL;
+	t_command	*commands = NULL;
 	t_env	*env_list = NULL;
 
 	(void)argc;
@@ -42,13 +42,15 @@ int main(int argc, char **argv, char **env)
 		if (*input) // Añadir solo si el input no está vacío, esto hace que flechas funcionen con readline
 			add_history(input);
 		tokens = tokenizer(input, env_list);
-		nodes = node_list(tokens);
+		commands = command_list(tokens);
 
-		print_tokens(tokens);
-		//printf("\n");
-		print_commands(nodes);
+		execute_commands(commands, env_list);
+
+		//print_tokens(tokens);
+		//print_commands(commands);
 		//print_env_list(env_list);
-		free_nodes(nodes); // utiliza free_tokens
+		free_tokens(tokens);
+		free_commands(commands); // utiliza free_tokens
 		free(input);
 		if (!input)
 			break;
@@ -56,3 +58,7 @@ int main(int argc, char **argv, char **env)
 	free_env(env_list); 
 	return (0);
 }
+
+// TO DO
+// cada vez que utilizo strdup, menos en env vars EXISTENTES tengo leaks
+// no se como liberar los strdups bien, esto es parsing

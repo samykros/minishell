@@ -6,11 +6,11 @@
 /*   By: spascual <spascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:07:40 by spascual          #+#    #+#             */
-/*   Updated: 2024/12/10 12:07:41 by spascual         ###   ########.fr       */
+/*   Updated: 2024/12/15 15:24:36 by spascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 t_token *handle_quoted_string(const char *input, int *pos)
 {
@@ -39,7 +39,7 @@ char *get_env_value(t_env *env_list, const char *name)
 {
 	while (env_list != NULL)
 	{
-		if (strcmp(env_list->name, name) == 0)
+		if (ft_strcmp(env_list->name, name) == 0)
 			return env_list->value;
 		env_list = env_list->next;
 	}

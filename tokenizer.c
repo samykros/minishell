@@ -6,13 +6,13 @@
 /*   By: spascual <spascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:07:48 by spascual          #+#    #+#             */
-/*   Updated: 2024/12/10 12:38:12 by spascual         ###   ########.fr       */
+/*   Updated: 2025/01/08 16:07:16 by spascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_command	*create_command_command(t_token *start, t_token *end)
+t_command	*create_command(t_token *start, t_token *end)
 {
 	t_command *command = malloc(sizeof(t_command));
 	if (!command)
@@ -60,7 +60,7 @@ t_command	*command_list(t_token *tokens)
 		{
 			if (command_start != token_iter)
 			{  // Evitar nodos vacíos en caso de pipes consecutivos
-				t_command *new_command = create_command_command(command_start, token_iter);
+				t_command *new_command = create_command(command_start, token_iter);
 				if (!new_command)
 				{
 					free_commands(head);
@@ -79,7 +79,7 @@ t_command	*command_list(t_token *tokens)
 	// Último comando después del último pipe
 	if (command_start != NULL)
 	{
-		t_command *new_command = create_command_command(command_start, NULL); // Hasta el final de la lista
+		t_command *new_command = create_command(command_start, NULL); // Hasta el final de la lista
 		if (!new_command)
 		{
 			free_commands(head);
@@ -106,9 +106,9 @@ t_token	*tokenizer(char *input, t_env *env_list)
 			token = handle_quoted_string(input, &pos);
 			add_token_to_list(&tokens, token, input, &pos);  // & direccion memoria, permite modificar, que no se te olvide
 		}
-		else if (is_operator(input[pos]))
+		else if (is_operator(input[pos])) // Esto esta en main, sacarlo da resultados diferentes..?
 		{
-			if (is_operator(input[pos]) == 2) // pipe
+			if (is_operator(input[pos]) == 2) // 2 == pipe
 				command_list(tokens);
 			token = handle_operator(input, &pos);
 			add_token_to_list(&tokens, token, input, &pos);

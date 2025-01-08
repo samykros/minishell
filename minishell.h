@@ -65,7 +65,7 @@ void print_env_list(t_env *env);
 t_token *tokenizer(char *input, t_env *env_list);
 int is_pipe(t_token *token);
 t_command *command_list(t_token *tokens);
-t_command *create_command_command(t_token *start, t_token *end);
+t_command *create_command(t_token *start, t_token *end);
 
 // utils
 char	*ft_strndup(const char *s, size_t n);

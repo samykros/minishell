@@ -6,12 +6,13 @@
 /*   By: spascual <spascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 12:11:19 by spascual          #+#    #+#             */
-/*   Updated: 2024/12/15 16:51:28 by spascual         ###   ########.fr       */
+/*   Updated: 2025/01/08 16:23:19 by spascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+// no funciona
 void execute_pipeline(t_command *commands, int num_commands, t_env *env_list)
 {
     int i = 0;

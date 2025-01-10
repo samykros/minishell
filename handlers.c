@@ -6,7 +6,7 @@
 /*   By: spascual <spascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:07:40 by spascual          #+#    #+#             */
-/*   Updated: 2024/12/15 15:24:36 by spascual         ###   ########.fr       */
+/*   Updated: 2025/01/10 18:08:00 by spascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,90 @@
 
 t_token *handle_quoted_string(const char *input, int *pos)
 {
-	int start;
-	char *value;
+	char	*value = NULL; // Acumula el resultado final
+	char	*tmp;
+	char	quote_type;
+	int		start;
+	int		len;
 
-	(*pos)++; // Ignorar la primera comilla
-	start = *pos;
-	while (input[*pos] && !is_quote(input[*pos]))
-		(*pos)++;
-	value = ft_strndup(&input[start], *pos - start);
-	(*pos)++; // Ignorar la comilla de cierre
-	return (crear_token(value, 2)); // Tipo 2 es un string con comillas
+	while (input[*pos]) // Procesar hasta el final del input
+	{
+		// Manejar comillas
+		if (input[*pos] == '"' || input[*pos] == '\'')
+		{
+			quote_type = input[*pos];
+			(*pos)++;
+			start = *pos; // puedo poner aqui pos++ y tener menos lineas ?
+			// Buscar la comilla de cierre o falta de ella
+			while (input[*pos] && input[*pos] != quote_type)
+				(*pos)++;
+			if (input[*pos] != quote_type)
+			{
+				printf("Error: unclosed quote\n");
+				free(value);
+				return NULL;
+			}
+			// Copiar el contenido entre las comillas
+			len = *pos - start;
+			tmp = malloc(len + 1); // +1 para '\0'
+			if (!tmp)
+			{
+				perror("malloc failed");
+				free(value);
+				return NULL;
+			}
+			strncpy(tmp, &input[start], len);
+			tmp[len] = '\0';
+			(*pos)++; // Saltar la comilla de cierre
+		}
+		else // Manejar texto fuera de las comillas
+		{
+			start = *pos;
+			while (input[*pos] && input[*pos] != '"' && input[*pos] != '\'')
+				(*pos)++;
+			len = *pos - start;
+			tmp = malloc(len + 1); // +1 para '\0'
+			if (!tmp)
+			{
+				perror("malloc failed");
+				free(value);
+				return NULL;
+			}
+			strncpy(tmp, &input[start], len);
+			tmp[len] = '\0';
+		}
+		// Concatenar tmp al resultado final
+		if (value == NULL)
+			value = strdup(tmp); // Primera asignación
+		else
+		{
+			char *new_value = malloc(ft_strlen(value) + ft_strlen(tmp) + 1);
+			if (!new_value)
+			{
+				perror("malloc failed");
+				free(tmp);
+				free(value);
+				return NULL;
+			}
+			strcpy(new_value, value);
+			strcat(new_value, tmp);
+			free(value);
+			value = new_value;
+		}
+		free(tmp); // Liberar tmp después de usarlo
+	}
+/*
+	// en mi cabeza tiene sentido que funcione solo con eso sin el ultimo if else...
+		strcat(value, tmp);
+		free(tmp);
+	}
+*/
+	return (crear_token(value, 2)); // Crear el token final con el contenido acumulado
 }
 
 t_token *handle_operator(const char *input, int *pos)
 {
-	char *value;
+	char	*value;
 	
 	value = ft_strndup(&input[*pos], 1); // Copia el operador
 	(*pos)++; // Avanzar posición

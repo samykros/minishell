@@ -6,12 +6,13 @@
 /*   By: spascual <spascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:07:46 by spascual          #+#    #+#             */
-/*   Updated: 2024/12/11 11:58:21 by spascual         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:49:08 by spascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+// cuento como edge case que el directorio pueda ser >1024 ?
 void builtin_pwd(void)
 {
 	char *cwd;

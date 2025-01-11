@@ -6,7 +6,7 @@
 /*   By: spascual <spascual@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:08:08 by spascual          #+#    #+#             */
-/*   Updated: 2024/12/10 12:35:25 by spascual         ###   ########.fr       */
+/*   Updated: 2025/01/11 11:58:54 by spascual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void print_env_list(t_env *env)
 	t_env *current = env;  // Comienza en el primer nodo de la lista
 	while (current != NULL)
 	{
-		printf("Name: %s, Value: %s\n", current->name, current->value);
+		printf("%s = %s\n", current->name, current->value);
 		current = current->next;  // Avanza al siguiente nodo
 	}
 }
